@@ -1,0 +1,114 @@
+html, body {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+body {
+    background: #f1f2f4;
+    background-image: url('/img/base4.jpg');
+    background-position: bottom center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed; */
+    backdrop-filter: blur(12px);
+    box-sizing: border-box !important;
+    overflow: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(80, 80, 80); 
+}
+
+.contestants {
+    /* margin-top: 2vh; */
+    height: 80vh;
+    box-sizing: border-box;
+    overflow-y: scroll;
+}
+
+.overlay {
+    background: black;
+    width: 100%;
+    height: 100vh;
+    opacity: .4;
+    position: relative;
+}
+
+.main {
+    position: absolute;
+    top: 4vh;
+    left: 10vw;
+}
+
+.card {
+    background: #fcf5f3;
+    border: none;
+}
+
+.navbar {
+   background: none !important;
+   position: absolute;
+   z-index: 3;
+}
+
+.nav {
+    display: flex;
+    position: absolute;
+    z-index: 3;
+}
+
+.active-nav {
+    color: #ffffff !important;
+    border-bottom: solid 3px #ffffff;
+}
+
+#login {
+    border-radius: none !important;
+    border: 2px solid #492415;
+    color: #492415;
+}
+
+#login:hover {
+    background: #492415;
+    color: #ffffff;
+}
+
+#signup {
+    border-radius: none !important;
+    border: 2px solid #492415;
+    color: #492415;
+}
+
+#signup:hover {
+    background: #492415;
+    color: #ffffff;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 1200px) {
+    .main {
+        left: 0;
+    }
+}
