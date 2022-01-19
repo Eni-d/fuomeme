@@ -4,21 +4,21 @@ const User = require('../models/Signup')
 const Contestant = require('../models/Contestants')
 const Comment = require('../models/Comments')
 const Like = require('../models/Likes')
-const multer = require('multer')
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${req.session.username}-${file.originalname}`)
-    }
-})
-const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    }
-})
+// const multer = require('multer')
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'public/uploads')
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, `${req.session.username}-${file.originalname}`)
+//     }
+// })
+// const upload = multer({
+//     storage: storage,
+//     limits: {
+//         fileSize: 1024 * 1024 * 5
+//     }
+// })
 
 router.get('/', (req, res) => {
     res.render('index')
@@ -48,6 +48,23 @@ router.get('/dashboard', (req, res) => {
         })
     }
 })
+
+// router.get('/dashboard', (req, res) => {
+//     if (!req.session.username && !req.session.password) {
+//         res.redirect('/login')
+//     } else {
+//         Contestant.find({}, (err, contestants) => {
+//             if (err) {
+//                 res.json({
+//                     message: 'Error',
+//                     err
+//                 })
+//             } else {
+//                 res.render('dashboard', {username: req.session.username, pic: req.session.pic, contestants: contestants})
+//             }
+//         })
+//     }
+// })
 
 router.post('/signup', (req, res) => {
     User.findOne({ username: req.body.username }, (err, user) => {
@@ -105,14 +122,35 @@ router.post('/login', (req, res) => {
     })
 })
 
-router.post('/contest', upload.single('pic'), (req, res) => {
-    const paths = req.file.path.split('\\')
-    const actualPath = paths[1] + '\\' + paths[2]
-    req.session.pic = actualPath
+// router.post('/contest', upload.single('pic'), (req, res) => {
+//     const paths = req.file.path.split('\\')
+//     const actualPath = paths[1] + '\\' + paths[2]
+//     req.session.pic = actualPath
+//     let data = {
+//         pic: actualPath,
+//         username: req.session.username
+//     }
+//     Contestant.create(data, (err, user) => {
+//         if (err) {
+//             res.json({
+//                 message: 'Upload Error!',
+//                 err
+//             })
+//         } else {
+//             res.redirect('/dashboard')
+//         }
+//     })
+// })
+
+router.post('/contest', (req, res) => {
+    let frontEndData = JSON.parse(req.body.pic)
+    let pic = new Buffer.from(frontEndData.data, 'base64')
+    let actualPic = `data:${frontEndData.type};charset=utf-8;base64,${pic.toString('base64')}`
     let data = {
-        pic: actualPath,
+        pic: actualPic,
         username: req.session.username
     }
+    req.session.pic = actualPic
     Contestant.create(data, (err, user) => {
         if (err) {
             res.json({

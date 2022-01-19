@@ -10,6 +10,8 @@
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
     <title>Dashboard</title>
     <style>
         body {
@@ -51,10 +53,13 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="/contest" enctype="multipart/form-data" method="POST">
-                                    <div class="form-group">
+                                <p class="text-info">Image size should not exceed 2MB.</p>
+                                <form action="/contest" method="POST">
+                                    <!-- <div class="form-group">
                                         <input type="file" name="pic" id="pic" class="form-control">
                                     </div>
+                                    <button type="submit" class="btn btn-primary">Upload</button> -->
+                                    <input type='file' name="pic" id="pic" class="filepond">
                                     <button type="submit" class="btn btn-primary">Upload</button>
                                 </form>
                             </div>
@@ -67,8 +72,9 @@
                 <% if (contestants.length > 0 ) { %>
                     <div class="container contestants">
                         <% for (let i=0; i < contestants.length; i++) { %>
+                            <p style="display: none;"><%= contestants[i] %></p>
                             <div class="container card mb-4">
-                                <img class="card-img-top w-100" src='<%= contestants[i].pic %>' alt="">
+                                <img class="card-img-top w-100" src="<%= contestants[i].pic %>" alt="" id="contestantImage">
                                 <div class="card-body">
                                     <h5 class="mb-4">
                                         <i class="la la-user-circle"></i>
@@ -115,6 +121,14 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.js"></script>
+
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+
+    <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 
     <script src="js/dashboard.js"></script>
 </body>
