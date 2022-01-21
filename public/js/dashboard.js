@@ -200,6 +200,7 @@ for (let i = 0; i < like.length; i++) {
 FilePond.registerPlugin(
     FilePondPluginImagePreview,
     FilePondPluginImageResize,
+    FilePondPluginFileValidateSize,
     FilePondPluginFileEncode
 )
 
@@ -207,6 +208,10 @@ FilePond.registerPlugin(
 //     stylePanelAspectRatio: 50 / 50,
 //     imageResizeTargetWidth: 50,
 //     imageResizeTargetHeight: 50
+// })
+
+// FilePond.setOptions({
+//     maxFileSize: '8MB'
 // })
 
 

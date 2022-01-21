@@ -18,7 +18,10 @@ mongoose.connect('mongodb+srv://dbDaniel:dbDaniel@cluster0.rcsbe.mongodb.net/fuo
 
 app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({
+    extended: true,
+    limit: '50mb'
+}))
 app.use(bodyParser.json())
 app.use(session({
     secret: 'fuoMemeSession',
